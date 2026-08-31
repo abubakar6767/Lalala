@@ -1,0 +1,24 @@
+repeat task.wait() until game:IsLoaded()
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local remote = ReplicatedStorage
+    :WaitForChild("GameEvents")
+    :WaitForChild("BuyEventShopStock")
+
+local interval = 10
+
+while true do
+    for _, shop in ipairs({
+        "Blood Moon Shop",
+        "Twilight Shop",
+    }) do
+        pcall(function()
+            remote:FireServer("Night Egg", shop)
+        end)
+
+        task.wait(0.1)
+    end
+
+    task.wait(interval)
+end
